@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import React, { ComponentProps } from "react";
 import { Equal, Expect } from "../helpers/type-utils";
 
 // export const Input = (

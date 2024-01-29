@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import React,  from "react";{ ComponentProps } from "react";
 import { Equal, Expect } from "../helpers/type-utils";
 
 type Example = Omit<ComponentProps<"input">, "onChange">;

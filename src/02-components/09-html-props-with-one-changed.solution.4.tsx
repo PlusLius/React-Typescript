@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import React, { ComponentProps } from "react";
 import { Equal, Expect } from "../helpers/type-utils";
 
 type OverrideProps<T, TOverridden> = Omit<T, keyof TOverridden> & TOverridden;
