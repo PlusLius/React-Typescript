@@ -1,0 +1,58 @@
+import { Equal, Expect } from "../helpers/type-utils";
+import React from "react";
+
+type InputProps = React.ComponentProps<"input">;
+type Input = "number" | "text" | "password"
+
+/**
+ * All these components take the same props!
+ *
+ * We don't want to repeat ourselves by typing
+ * props: InputProps for each component.
+ *
+ * There must be a better way!
+ *
+ * Hint: Record and satisfies will come in handy.
+ */
+// const COMPONENTS: Record<Input, React.ComponentType<InputProps>> = {
+//   text: (props) => {
+//     return <input {...props} type="text" />;
+//   },
+//   number: (props) => {
+//     return <input {...props} type="number" />;
+//   },
+//   password: (props) => {
+//     return <input {...props} type="password" />;
+//   },
+// }
+const COMPONENTS = {
+  text: (props) => {
+    return <input {...props} type="text" />;
+  },
+  number: (props) => {
+    return <input {...props} type="number" />;
+  },
+  password: (props) => {
+    return <input {...props} type="password" />;
+  },
+} satisfies Record<string, React.ComponentType<InputProps>>
+
+export const Input = (props: { type: Input } & InputProps) => {
+  const Component = COMPONENTS[props.type];
+  return <Component {...props} />;
+};
+
+<>
+  <Input
+    type="number"
+    onChange={(e) => {
+      // e should be properly typed!
+      type test = Expect<Equal<typeof e, React.ChangeEvent<HTMLInputElement>>>;
+    }}
+  ></Input>
+  <Input type="text"></Input>
+  <Input type="password"></Input>
+
+  {/* @ts-expect-error */}
+  <Input type="email"></Input>
+</>;
